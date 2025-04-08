@@ -38,12 +38,30 @@ export default function Content() {
     }
 
     const handleSave = () => {
-        const updatedData = tableData.map((item) =>
-            item.id === currentEdit.id ? currentEdit : item
-        )
-        setTableData(updatedData)
-        setIsModalOpen(false)
+        fetch(`http://localhost:3000/table/${currentEdit.id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(currentEdit)
+        })
+        .then((res) => {
+            if (!res.ok) throw new Error("Failed to update data");
+            return res.json();
+        })
+        .then((updatedItem) => {
+            const updatedData = tableData.map((item) =>
+                item.id === updatedItem.id ? updatedItem : item
+            );
+            setTableData(updatedData);
+            setIsModalOpen(false);
+        })
+        .catch((err) => {
+            console.error("PUT error:", err);
+            alert("Có lỗi khi lưu dữ liệu!");
+        });
     }
+    
 
     const handleChange = (e) => {
         const { name, value } = e.target
