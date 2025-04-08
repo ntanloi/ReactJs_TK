@@ -5,6 +5,8 @@ export default function Content() {
 
     const [overview, setOverview] = useState([])
     const [tableData, setTableData] = useState([])
+    const [isModalOpen, setIsModalOpen] = useState(false)
+    const [currentEdit, setCurrentEdit] = useState(null)
 
     useEffect(() => {
         fetch('http://localhost:3000/overview')
@@ -30,7 +32,24 @@ export default function Content() {
             .catch((err) => console.error("Fetch error:", err));
     }, [])
 
-    
+    const handleEditClick = (item) => {
+        setCurrentEdit(item)
+        setIsModalOpen(true)
+    }
+
+    const handleSave = () => {
+        const updatedData = tableData.map((item) =>
+            item.id === currentEdit.id ? currentEdit : item
+        )
+        setTableData(updatedData)
+        setIsModalOpen(false)
+    }
+
+    const handleChange = (e) => {
+        const { name, value } = e.target
+        setCurrentEdit({ ...currentEdit, [name]: value })
+    }
+
 
     return ( 
         <>
@@ -68,45 +87,72 @@ export default function Content() {
                 </div>
             </div>
 
-        <div className="table-wrapper">
-            <table className="table">
-                <thead>
-                    <tr>
-                        <th><input type="checkbox" /></th>
-                        <th>CUSTOMER NAME</th>
-                        <th>COMPANY</th>
-                        <th>ORDER VALUE</th>
-                        <th>ORDER DATE</th>
-                        <th>STATUS</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                        tableData.map((item) => {
-                            return (
-                                <tr key={item.id}>
-                                    <td><input type="checkbox" /></td>
-                                    <td className="td-name"><img src={item.img} alt="" />{item.name}</td>
-                                    <td>{item.company}</td>
-                                    <td>{item.orderValue}</td>
-                                    <td>{item.orderDate}</td>
-                                    <td><span className={
+            <div className="table-wrapper">
+                <table className="table">
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox" /></th>
+                            <th>CUSTOMER NAME</th>
+                            <th>COMPANY</th>
+                            <th>ORDER VALUE</th>
+                            <th>ORDER DATE</th>
+                            <th>STATUS</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {tableData.map((item) => (
+                            <tr key={item.id}>
+                                <td><input type="checkbox" /></td>
+                                <td className="td-name"><img src={item.img || avt} alt="" />{item.name}</td>
+                                <td>{item.company}</td>
+                                <td>{item.orderValue}</td>
+                                <td>{item.orderDate}</td>
+                                <td>
+                                    <span className={
                                         item.status === "New" ? 'status-new' :
-                                        item.status === "In-progress" ? 'status-progress' :
-                                        item.status === "Completed" ? 'status-completed' : ''}>
+                                            item.status === "In-progress" ? 'status-progress' :
+                                                item.status === "Completed" ? 'status-completed' : ''}>
                                         {item.status}
                                     </span>
-                                    </td>
-                                    <td><button>✏️</button></td>
-                                </tr>
-                            )
-                        })
-                    }
-                </tbody>
-            </table>
-        </div>
-          
+                                </td>
+                                <td><button onClick={() => handleEditClick(item)}>✏️</button></td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+            
+            {isModalOpen && currentEdit && (
+                <div className="modal-overlay">
+                    <div className="modal">
+                        <h2>Edit Customer</h2>
+                        <label>Name:
+                            <input type="text" name="name" value={currentEdit.name} onChange={handleChange} />
+                        </label>
+                        <label>Company:
+                            <input type="text" name="company" value={currentEdit.company} onChange={handleChange} />
+                        </label>
+                        <label>Order Value:
+                            <input type="text" name="orderValue" value={currentEdit.orderValue} onChange={handleChange} />
+                        </label>
+                        <label>Order Date:
+                            <input type="date" name="orderDate" value={currentEdit.orderDate} onChange={handleChange} />
+                        </label>
+                        <label>Status:
+                            <select name="status" value={currentEdit.status} onChange={handleChange}>
+                                <option value="New">New</option>
+                                <option value="In-progress">In-progress</option>
+                                <option value="Completed">Completed</option>
+                            </select>
+                        </label>
+                        <div className="modal-buttons">
+                            <button onClick={handleSave}>Save</button>
+                            <button onClick={() => setIsModalOpen(false)}>Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
 
         <div className="table-footer">
