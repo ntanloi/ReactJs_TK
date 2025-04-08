@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react"
 import avt from '/img/avatar.png'
+import square from '/img/Squaresfour1.png'
+import import1 from '/img/import.png'
+import export1 from '/img/export.png'
+
 
 export default function Content() {
 
@@ -121,7 +125,9 @@ export default function Content() {
     return ( 
         <>
         <div className="content-top">
-           <p>Overview</p>
+           <div className="ovr">
+            <img src={square} alt="" /><p>Overview</p>
+           </div>
            <div className="three-box">
                {
                     overview.map((item) => {
@@ -134,7 +140,8 @@ export default function Content() {
                                     <div className="icon_box" dangerouslySetInnerHTML={{ __html: item.icon }} />
                                 </div>
                                     <div className="price_box">
-                                        <p>{item.value}</p>
+                                        <p><b>$</b>
+                                            {item.value}</p>
                                     </div>
                                     <div className="percent_box">
                                         <p>{item.changePercent} <span>period of change</span></p>
@@ -147,10 +154,18 @@ export default function Content() {
         </div>
         <div className="content-bottom">
             <div className="bot-title">
-                <p>Detaild Report</p>
+            <div className="ovr">
+                <img src={square} alt="" /><p>Detaild Report</p>
+           </div>
                 <div className="bot-button">
-                    <button onClick={() => setIsAddModalOpen(true)}>import</button>
-                    <button>export</button>
+                    <div className="btn_details">
+                        <img src={import1} alt="" />
+                        <button onClick={() => setIsAddModalOpen(true)}>import</button>
+                    </div>
+                    <div className="btn_details">
+                        <img src={export1} alt="" />
+                        <button>export</button>                    
+                    </div>
                 </div>
             </div>
 
@@ -258,10 +273,10 @@ export default function Content() {
         </div>
 
         <div className="table-footer">
-            <div className="results">63 results</div>
+            <div className="results" style={{fontWeight: "bold"}}>63 results</div>
             <div className="pagination">
                 <button>&larr;</button>
-                <button className="active">1</button>
+                <button className="active" style={{color: 'pink'}}>1</button>
                 <button>2</button>
                 <button>3</button>
                 <button>4</button>
