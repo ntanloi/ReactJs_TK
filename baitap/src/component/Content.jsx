@@ -1,12 +1,47 @@
+import { useEffect, useState } from "react"
+
 export default function Content() {
+
+    const [overview, setOverview] = useState([])
+
+    useEffect(() => {
+        fetch('http://localhost:3000/overview')
+            .then((res) => {
+                if (!res.ok) {
+                    throw new Error("Network response was not ok");
+                }
+                return res.json();
+            })
+            .then((data) => setOverview(data))
+            .catch((err) => console.error("Fetch error:", err));
+    }, []);
+    
+
     return ( 
         <>
         <div className="content-top">
            <p>Overview</p>
            <div className="three-box">
-               <div className="box">item</div>
-               <div className="box">item</div>
-               <div className="box">item</div>
+               {
+                    overview.map((item) => {
+                        return (
+                            <div className="box" key={item.id}>
+                                <div className="header_box">
+                                    <div className="title_box">
+                                            <p>{item.title}</p>
+                                    </div>
+                                    <div className="icon_box" dangerouslySetInnerHTML={{ __html: item.icon }} />
+                                </div>
+                                    <div className="price_box">
+                                        <p>{item.value}</p>
+                                    </div>
+                                    <div className="percent_box">
+                                        <p>{item.changePercent} <span>period of change</span></p>
+                                    </div>
+                            </div>
+                        )
+                    })
+               }
            </div>
         </div>
         <div className="content-bottom">
@@ -17,20 +52,6 @@ export default function Content() {
                     <button>export</button>
                 </div>
             </div>
-
-            {/* <table>
-                <pead>
-                    <tr className="table-header">
-                        <p><input type="checkbox" name="" id="" /></p>
-                        <p>CUSTOMER NAME</p>
-                        <p>COMPANY</p>
-                        <p>ORDER VALUE</p>
-                        <p>ORDER DATE</p>
-                        <p>STATUS</p>
-                        <p></p>
-                    </tr>
-                </pead>
-            </table> */}
 
         <div className="table-wrapper">
             <table className="table">
@@ -106,11 +127,11 @@ export default function Content() {
           
         </div>
 
-        <div class="table-footer">
-            <div class="results">63 results</div>
-            <div class="pagination">
+        <div className="table-footer">
+            <div className="results">63 results</div>
+            <div className="pagination">
                 <button>&larr;</button>
-                <button class="active">1</button>
+                <button className="active">1</button>
                 <button>2</button>
                 <button>3</button>
                 <button>4</button>

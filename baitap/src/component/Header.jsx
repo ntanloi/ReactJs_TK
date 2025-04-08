@@ -32,7 +32,7 @@ export default function Header() {
       </div> */}
 
       <div className='headerImage'>
-        <p>image</p>
+        <p style={{color: 'red'}}>image</p>
       </div>
 
       <div className='itemImage'>
