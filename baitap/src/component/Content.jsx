@@ -32,6 +32,16 @@ export default function Content() {
             .catch((err) => console.error("Fetch error:", err));
     }, [])
 
+    const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+    const [newUser, setNewUser] = useState({
+        name: "",
+        company: "",
+        orderValue: "",
+        orderDate: "",
+        status: "New",
+        img: avt
+    });
+
     const handleEditClick = (item) => {
         setCurrentEdit(item)
         setIsModalOpen(true)
@@ -61,12 +71,51 @@ export default function Content() {
             alert("Có lỗi khi lưu dữ liệu!");
         });
     }
+
+    
+
     
 
     const handleChange = (e) => {
         const { name, value } = e.target
         setCurrentEdit({ ...currentEdit, [name]: value })
     }
+
+    const handleNewUserChange = (e) => {
+        const { name, value } = e.target;
+        setNewUser({ ...newUser, [name]: value });
+    };
+    
+    const handleAddUser = () => {
+        fetch("http://localhost:3000/table", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(newUser)
+        })
+        .then((res) => {
+            if (!res.ok) throw new Error("Failed to add user");
+            return res.json();
+        })
+        .then((addedUser) => {
+            setTableData([...tableData, addedUser]);
+            setIsAddModalOpen(false);
+            setNewUser({
+                name: "",
+                company: "",
+                orderValue: "",
+                orderDate: "",
+                status: "New",
+                img: avt
+            });
+        })
+        .catch((err) => {
+            console.error("POST error:", err);
+            alert("Có lỗi khi thêm người dùng!");
+        });
+    };
+    
 
 
     return ( 
@@ -100,7 +149,7 @@ export default function Content() {
             <div className="bot-title">
                 <p>Detaild Report</p>
                 <div className="bot-button">
-                    <button>import</button>
+                    <button onClick={() => setIsAddModalOpen(true)}>import</button>
                     <button>export</button>
                 </div>
             </div>
@@ -171,6 +220,41 @@ export default function Content() {
                     </div>
                 </div>
             )}
+
+            {isAddModalOpen && (
+                <div className="modal-overlay">
+                    <div className="modal">
+                        <h2>Add New Customer</h2>
+                        <label>Name:
+                            <input type="text" name="name" value={newUser.name} onChange={handleNewUserChange} />
+                        </label>
+                        <label>Company:
+                            <input type="text" name="company" value={newUser.company} onChange={handleNewUserChange} />
+                        </label>
+                        <label>Order Value:
+                            <input type="text" name="orderValue" value={newUser.orderValue} onChange={handleNewUserChange} />
+                        </label>
+                        <label>Order Date:
+                            <input type="date" name="orderDate" value={newUser.orderDate} onChange={handleNewUserChange} />
+                        </label>
+                        <label>Status:
+                            <select name="status" value={newUser.status} onChange={handleNewUserChange}>
+                                <option value="New">New</option>
+                                <option value="In-progress">In-progress</option>
+                                <option value="Completed">Completed</option>
+                            </select>
+                        </label>
+                        <label>Image URL:
+                            <input type="text" name="img" value={newUser.img} onChange={handleNewUserChange} />
+                        </label>
+                        <div className="modal-buttons">
+                            <button onClick={handleAddUser}>Add</button>
+                            <button onClick={() => setIsAddModalOpen(false)}>Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
         </div>
 
         <div className="table-footer">

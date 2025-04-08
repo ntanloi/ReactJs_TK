@@ -76,6 +76,24 @@
       "orderDate": "10/06/2023",
       "status": "Completed",
       "img": "/img/avatar3.png"
+    },
+    {
+      "id": "c087",
+      "name": "Nguyễn Tấn Lợi",
+      "company": "IUH",
+      "orderValue": "$234",
+      "orderDate": "2025-04-16",
+      "status": "In-progress",
+      "img": "/img/avatar.png"
+    },
+    {
+      "id": "7b33",
+      "name": "nguyenloidt",
+      "company": "Movie Management",
+      "orderValue": "$234",
+      "orderDate": "2025-04-14",
+      "status": "Completed",
+      "img": "/img/avatar1.png"
     }
   ]
 }
