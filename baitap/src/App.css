@@ -246,6 +246,26 @@
   display: inline-block;
 }
 
+.status-progress {
+  background-color: #f7ebc8;
+  color: #a99062;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  display: inline-block;
+}
+
+.status-completed {
+  background-color: #bbffd9;
+  color: #43b96f;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  display: inline-block;
+}
+
 button {
   background: none;
   border: none;

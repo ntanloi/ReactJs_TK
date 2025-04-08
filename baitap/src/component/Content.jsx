@@ -69,7 +69,7 @@ export default function Content() {
                 <tbody>
                     <tr>
                         <td><input type="checkbox" /></td>
-                        <td>Avatar</td>
+                        <td>Elizabeth Lee</td>
                         <td>AvatarSystems</td>
                         <td>$559</td>
                         <td>10/07/2023</td>
@@ -78,47 +78,47 @@ export default function Content() {
                     </tr>
                     <tr>
                         <td><input type="checkbox" /></td>
-                        <td>Avatar</td>
-                        <td>AvatarSystems</td>
-                        <td>$559</td>
-                        <td>10/07/2023</td>
+                        <td>Carlos Garcia</td>
+                        <td>SmoozeShift</td>
+                        <td>$747</td>
+                        <td>24/07/2023</td>
                         <td><span className="status-new">New</span></td>
                         <td><button>✏️</button></td>
                     </tr>
                     <tr>
                         <td><input type="checkbox" /></td>
-                        <td>Avatar</td>
-                        <td>AvatarSystems</td>
-                        <td>$559</td>
-                        <td>10/07/2023</td>
-                        <td><span className="status-new">New</span></td>
+                        <td>Elizabeth Bailey</td>
+                        <td>Prime Time Telecome</td>
+                        <td>$564</td>
+                        <td>08/08/2023</td>
+                        <td><span className="status-progress">In-progress</span></td>
                         <td><button>✏️</button></td>
                     </tr>
                     <tr>
                         <td><input type="checkbox" /></td>
-                        <td>Avatar</td>
-                        <td>AvatarSystems</td>
-                        <td>$559</td>
-                        <td>10/07/2023</td>
-                        <td><span className="status-new">New</span></td>
+                        <td>Ryan Brown</td>
+                        <td>OmniTech Corporation</td>
+                        <td>$541</td>
+                        <td>31/08/2023</td>
+                        <td><span className="status-progress">In-progress</span></td>
                         <td><button>✏️</button></td>
                     </tr>
                     <tr>
                         <td><input type="checkbox" /></td>
-                        <td>Avatar</td>
-                        <td>AvatarSystems</td>
-                        <td>$559</td>
-                        <td>10/07/2023</td>
-                        <td><span className="status-new">New</span></td>
+                        <td>Ryan Young</td>
+                        <td>DataStream Inc.</td>
+                        <td>$769</td>
+                        <td>01/05/2023</td>
+                        <td><span className="status-completed">Completed</span></td>
                         <td><button>✏️</button></td>
                     </tr>
                     <tr>
                         <td><input type="checkbox" /></td>
-                        <td>Avatar</td>
-                        <td>AvatarSystems</td>
-                        <td>$559</td>
-                        <td>10/07/2023</td>
-                        <td><span className="status-new">New</span></td>
+                        <td>Hailey Adam</td>
+                        <td>FlowRush</td>
+                        <td>$922</td>
+                        <td>10/06/2023</td>
+                        <td><span className="status-completed">Completed</span></td>
                         <td><button>✏️</button></td>
                     </tr>
                 </tbody>
